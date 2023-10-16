@@ -1,1 +1,1 @@
-# Schedule-Generator-Project
+Timetable Generator Project (TGP)
