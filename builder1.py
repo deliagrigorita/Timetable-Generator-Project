@@ -1,6 +1,6 @@
 # Product: Subject
 class Subject:
-    def __init__(self, name,teacher,room,resource):
+    def __init__(self, name=None, teacher=None, room=None, resource=None):
         self.name = name
         self.teacher = teacher
         self.room = room 
@@ -57,4 +57,4 @@ if __name__ == '__main__':
     concrete_subject_builder = ConcreteSubjectBuilder()  
     director = SubjectDirector(concrete_subject_builder)  
     subject = director.construct_subject("OOP", "MR ?", "Room C413", "Projector")  
-    
+    print(subject.name, subject.teacher, subject.room, subject.resource)
