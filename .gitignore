@@ -1,0 +1,43 @@
+# Ignore PyCharm project files
+.idea/
+
+# Ignore Python bytecode files
+__pycache__/
+*.pyc
+
+# Ignore virtual environment directories
+venv/
+env/
+*.env
+
+# Ignore user-specific IDE settings
+*.iml
+*.ipr
+*.iws
+
+# Ignore log files
+*.log
+
+# Ignore configuration files
+*.config
+
+# Ignore database files
+*.sqlite
+
+# Ignore compiled Python files
+*.pyo
+*.pyd
+
+# Ignore package lock files
+pip-lock.txt
+pipfile.lock
+
+# Ignore system and hidden files
+.DS_Store
+Thumbs.db
+
+# Ignore environment-specific files
+.env
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
