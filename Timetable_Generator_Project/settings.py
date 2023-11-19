@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'Timetable_Generator_Project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'Timetable-Generator-Project',
+        'NAME': 'raul05madalin$Timetable-Generator-Project',
         'USER': 'raul05madalin',
         'PASSWORD': 'Timetable-Generator-Project',
         'HOST': 'raul05madalin.mysql.pythonanywhere-services.com',
