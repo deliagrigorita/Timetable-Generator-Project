@@ -37,6 +37,13 @@
 <div class="container">
     <h1>Welcome to the Timetable Generator</h1>
     <p>This is a placeholder for your Timetable Generator project.</p>
+
+   <h2>Add Student</h2>
+    <form method="post" action="{% url 'add_student' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
     <!-- Add more content and features as needed -->
 </div>
 

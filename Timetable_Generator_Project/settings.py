@@ -75,14 +75,22 @@ WSGI_APPLICATION = 'Timetable_Generator_Project.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'raul05madalin$Timetable-Generator-Project',
+    #     'USER': 'raul05madalin',
+    #     'PASSWORD': 'Timetable-Generator-Project',
+    #     'HOST': 'raul05madalin.mysql.pythonanywhere-services.com',
+    #     'PORT': '3306',
+    # },
+    'default': {    # local_db
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'raul05madalin$Timetable-Generator-Project',
-        'USER': 'raul05madalin',
-        'PASSWORD': 'Timetable-Generator-Project',
-        'HOST': 'raul05madalin.mysql.pythonanywhere-services.com',
-        'PORT': '3306',  # This is typically 3306
-    }
+        'NAME': 'timetable_generator_project',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    },
 }
 
 
