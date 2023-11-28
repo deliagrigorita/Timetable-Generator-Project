@@ -15,6 +15,22 @@ def log_add_student(*args, **kwargs):
 
 
 @aspectlib.Aspect
+def log_update_student(*args, **kwargs):
+    print("Update a student...")
+    result = yield aspectlib.Proceed
+    print("Student updated successfully.")
+    return result
+
+
+@aspectlib.Aspect
+def log_delete_student(*args, **kwargs):
+    print("Delete a student...")
+    result = yield aspectlib.Proceed
+    print("Student deleted successfully.")
+    return result
+
+
+@aspectlib.Aspect
 def log_get_students(*args, **kwargs):
     print("Get students...")
     result = yield aspectlib.Proceed
@@ -42,6 +58,7 @@ def add_student(request):
     return render(request, 'index.html', {'form': form})
 
 
+@log_update_student
 def update_student(request, student_id):
     try:
         if request.method == 'PUT':
@@ -81,6 +98,7 @@ def update_student(request, student_id):
         return JsonResponse({'error': str(e)}, status=500)
 
 
+@log_delete_student
 def delete_student(request, student_id):
     try:
         student = Student.objects.get(id=student_id)
