@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Timetable Generator</title>
-    <!-- Add your CSS styles or link to an external stylesheet here -->
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -12,13 +11,26 @@
             margin: 0;
             padding: 0;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
+            flex-direction: column;
             height: 100vh;
         }
 
         .container {
             text-align: center;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px;
+        }
+
+        .column {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
         }
 
         h1 {
@@ -29,7 +41,17 @@
             color: #666;
         }
 
-        /* Add more styles as needed */
+        #student-info {
+            margin-top: 20px;
+        }
+
+        .student-info {
+            list-style: none;
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
@@ -38,14 +60,131 @@
     <h1>Welcome to the Timetable Generator</h1>
     <p>This is a placeholder for your Timetable Generator project.</p>
 
-   <h2>Add Student</h2>
-    <form method="post" action="{% url 'add_student' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Submit</button>
-    </form>
-    <!-- Add more content and features as needed -->
+    <div class="row">
+        <div class="column">
+            <h2>Add Student</h2>
+            <form id="addStudentForm" method="post" action="{% url 'add_student' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                  <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="students-info" class="column"></div>
 </div>
+
+<script>
+
+    function getAllStudentsInfo() {
+        fetch('/get_students/')
+            .then(response => response.json())
+            .then(students => {
+                const studentsInfoElement = document.getElementById('students-info');
+                studentsInfoElement.innerHTML = '<h2>All Students Information</h2>';
+
+                if (students.length === 0) {
+                    studentsInfoElement.innerHTML += '<p>No students available.</p>';
+                } else {
+                    students.forEach(student => {
+                        studentsInfoElement.innerHTML += `
+                            <li class="student-info" data-student-id="${student.id}">
+                                <span><strong>Id:</strong> ${student.id}</span>
+                                <input type="text" value="${student.email}" data-property="email">
+                                <input type="text" value="${student.password}" data-property="password">
+                                <input type="text" value="${student.first_name}" data-property="first_name">
+                                <input type="text" value="${student.last_name}" data-property="last_name">
+                                <input type="text" value="${student.date_of_birth || 'N/A'}" data-property="date_of_birth">
+                                <button onclick="updateStudent(${student.id})">Update</button>
+                                <button onclick="deleteStudent(${student.id})">Delete</button>
+                            </li>
+                        `;
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching students information:', error);
+            });
+    }
+
+    function updateStudent(studentId) {
+        const studentInfoElement = document.querySelector(`.student-info[data-student-id="${studentId}"]`);
+        console.log(studentId);
+
+        const updatedStudent = {
+            id: studentId,
+            email: studentInfoElement.querySelector('[data-property="email"]').value,
+            password: studentInfoElement.querySelector('[data-property="password"]').value,
+            first_name: studentInfoElement.querySelector('[data-property="first_name"]').value,
+            last_name: studentInfoElement.querySelector('[data-property="last_name"]').value,
+            date_of_birth: studentInfoElement.querySelector('[data-property="date_of_birth"]').value,
+        };
+
+        fetch(`/update_student/${studentId}/`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCSRFToken(),
+            },
+            body: JSON.stringify(updatedStudent),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('PUT request successful:', data);
+        })
+        .catch(error => {
+            console.error('Error making PUT request:', error);
+        });
+    }
+
+    function getCSRFToken() {
+        const csrfCookie = document.cookie
+            .split('; ')
+            .find(cookie => cookie.startsWith('csrftoken='));
+        if (csrfCookie) {
+            return csrfCookie.split('=')[1];
+        }
+        return null;
+    }
+
+    function deleteStudent(studentId) {
+        const url = `/delete_student/${studentId}`;
+
+        fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCSRFToken(),
+            },
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('DELETE request successful:', data);
+            
+            const deletedRow = document.querySelector(`.student-info[data-student-id="${studentId}"]`);
+            console.log(deletedRow);
+            if (deletedRow) {
+                deletedRow.remove();
+            }
+        })
+        .catch(error => {
+            console.error('Error making DELETE request:', error);
+        });
+    }
+
+    getAllStudentsInfo();
+
+</script>
 
 </body>
 </html>

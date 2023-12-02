@@ -9,6 +9,7 @@ __pycache__/
 venv/
 env/
 *.env
+*/migrations/
 
 # Ignore user-specific IDE settings
 *.iml
