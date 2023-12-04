@@ -4,6 +4,10 @@ from .models import Teacher
 from .models import Resource
 from .models import Schedule
 from .models import Timetable
+from .models import Subject
+from .models import Classroom
+from .models import Class
+from .models import Admin
 
 class StudentForm(forms.ModelForm):
     class Meta:
@@ -30,3 +34,23 @@ class TimetableForm(forms.ModelForm):
         model = Timetable
         fields = ['classes', 'semester', 'academic_year', 'is_published']
         exclude = ['created_at', 'updated_at']
+class SubjectForm(forms.ModelForm):
+    class Meta:
+        model = Subject
+        fields = ['name']
+
+class ClassroomForm(forms.ModelForm):
+    class Meta:
+        model = Classroom
+        fields = ['name']
+
+class ClassForm(forms.ModelForm):
+    class Meta:
+        model = Class
+        fields = ['name', 'teacher', 'students', 'classroom', 'schedule', 'resources']
+
+class AdminForm(forms.ModelForm):
+    class Meta:
+        model = Admin
+        fields = []
+
