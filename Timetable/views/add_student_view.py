@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
+from ..student_monitor import StudentCountMonitor
 from ..forms import StudentForm
 from ..models import Student
 from django.http import JsonResponse
 import aspectlib
 import json
+from ..test import test_schedule_functions
 
 
 @aspectlib.Aspect
@@ -37,9 +39,11 @@ def log_get_students(*args, **kwargs):
     print("Student received successfully.")
     return result
 
+student_monitor = StudentCountMonitor()
 
 @log_add_student
 def add_student(request):
+    #global student_monitor
     if request.method == 'POST':
         form = StudentForm(request.POST)
         if form.is_valid():
@@ -47,11 +51,16 @@ def add_student(request):
                 email=form.cleaned_data['email'],
                 password=form.cleaned_data['password'],
                 first_name=form.cleaned_data['first_name'],
-                last_name=form.cleaned_data['last_name']
+                last_name=form.cleaned_data['last_name'],
+                #date_of_birth=form.cleaned_data['date_of_birth']
             )
             student.save()
-            return redirect('index')  
-
+            #return redirect('index')  
+           
+        student_monitor.student_count = len(Student.objects.all())
+        if not student_monitor.max_student_count():
+             student_monitor.violation_handler('max_student_count')
+        return redirect('index')
     else:
         form = StudentForm()
 
@@ -75,6 +84,7 @@ def update_student(request, student_id):
         student.password = data.get('password', student.password)
         student.first_name = data.get('first_name', student.first_name)
         student.last_name = data.get('last_name', student.last_name)
+        student.date_of_birth = data.get('date_of_birth', student.date_of_birth)
 
         student.save()  
 
@@ -142,3 +152,5 @@ def get_all_students(request):
         }
         students_data.append(student_data)
     return JsonResponse(students_data, safe=False)
+
+
