@@ -8,7 +8,8 @@ class User(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     date_of_birth = models.DateField(null=True)
-    #profile_picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
+
+    # profile_picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
 
     def __str__(self):
         return self.email
@@ -25,11 +26,13 @@ class Admin(User):
 
 class Student(User):
     matricol = models.CharField(max_length=128, default='111222333444')
+
     # Additional fields for Student if needed
 
     class Meta:
         verbose_name = 'Student'
         verbose_name_plural = 'Students'
+
 
 class Subject(models.Model):
     name = models.CharField(max_length=50)
@@ -40,6 +43,7 @@ class Subject(models.Model):
 
 class Teacher(User):
     name = models.ManyToManyField(Subject)
+
     # Additional fields for Teacher if needed
 
     class Meta:
