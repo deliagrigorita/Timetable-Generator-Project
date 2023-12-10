@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-s)8ejdhckib#scqu@+rczpi^z7hwxmwaer*!0!3klqs_*(6y@)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['raul05madalin.pythonanywhere.com', '127.0.0.1']
+ALLOWED_HOSTS = ['raul05madalin.pythonanywhere.com', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'corsheaders',
     'Timetable',
     'Timetable_api',
 ]
@@ -50,6 +51,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+]
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # Replace with the actual URL of your React app
 ]
 
 ROOT_URLCONF = 'Timetable_Generator_Project.urls'
