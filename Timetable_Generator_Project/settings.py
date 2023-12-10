@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Timetable',
+    'django_prometheus',
 ]
 
 MIDDLEWARE = [
@@ -137,3 +138,8 @@ MEDIA_ROOT = '/home/raul05madalin/Timetable-Generator-Project/Timetable-Generato
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    #'path.to.YourEmailBackend',  # Replace with the actual path to your email-based backend
+]

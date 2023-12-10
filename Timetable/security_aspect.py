@@ -8,6 +8,7 @@ def secure_resource_access(*args, **kwargs):
     request = next((arg for arg in args if getattr(arg, 'user', None)), None)
 
     if not request or not request.user.is_authenticated:
+        print("Unauthorized access")
         return JsonResponse({'error': 'Unauthorized access'}, status=401)
 
     result = yield aspectlib.Proceed

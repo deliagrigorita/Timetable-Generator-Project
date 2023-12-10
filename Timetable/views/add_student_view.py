@@ -6,6 +6,8 @@ from django.http import JsonResponse
 import aspectlib
 import json
 from ..test import test_schedule_functions
+from django.contrib.auth.hashers import make_password
+
 
 
 @aspectlib.Aspect
@@ -49,7 +51,7 @@ def add_student(request):
         if form.is_valid():
             student = Student(
                 email=form.cleaned_data['email'],
-                password=form.cleaned_data['password'],
+                password=make_password(form.cleaned_data['password']),
                 first_name=form.cleaned_data['first_name'],
                 last_name=form.cleaned_data['last_name'],
                 #date_of_birth=form.cleaned_data['date_of_birth']

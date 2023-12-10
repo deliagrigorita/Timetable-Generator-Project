@@ -30,3 +30,9 @@ class TimetableForm(forms.ModelForm):
         model = Timetable
         fields = ['classes', 'semester', 'academic_year', 'is_published']
         exclude = ['created_at', 'updated_at']
+
+class LoginForm(forms.Form):
+    email = forms.CharField(max_length=255, required=True)
+    password = forms.CharField(widget=forms.PasswordInput, required=True)
+
+    

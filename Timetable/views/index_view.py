@@ -1,17 +1,16 @@
 from Timetable.student_monitor import StudentCountMonitor
-from ..models import Student
+from ..models import Student, User
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from ..forms import StudentForm
+from ..forms import StudentForm, LoginForm
 from ..student_monitor import simulate_student_addition
+from django.contrib import messages
+from django.contrib.auth.hashers import make_password, check_password
 
-# Create an instance of the StudentCountMonitor
 student_monitor = StudentCountMonitor()
 
 def add_student(request):
-    #global student_monitor  
     if request.method == 'POST':
-        # Update student count and check the property
         student_monitor.student_count = len(Student.objects.all())
         if not student_monitor.max_student_count():
             student_monitor.violation_handler('max_student_count')

@@ -1,4 +1,5 @@
-from django.urls import path
+from django.urls import path, include
+from django.contrib import admin
 from django.http import HttpResponse
 from .views.index_view import index
 from .views.add_student_view import add_student
@@ -22,6 +23,7 @@ from .views.add_timetable_view import add_timetable
 from .views.add_timetable_view import update_timetable
 from .views.add_timetable_view import delete_timetable
 from .views.add_timetable_view import get_all_timetables
+from .views.auth_view import login, user_logout
 
 
 
@@ -56,6 +58,10 @@ urlpatterns = [
     path('update_timetable/<int:timetable_id>/', update_timetable, name='update_timetable'),
     path('delete_timetable/<int:timetable_id>/', delete_timetable, name='delete_timetable'),
     path('get_timetables/', get_all_timetables, name='get_timetables'),
+
+    path('auth/', login, name='login'),
+    path('logout/', user_logout, name='logout'), 
+    
 
 
 ]
