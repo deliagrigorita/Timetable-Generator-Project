@@ -37,15 +37,24 @@ def log_get_classrooms(*args, **kwargs):
 @log_add_classroom
 def add_classroom(request):
     if request.method == 'POST':
-        form = ClassroomForm(request.POST) 
+        form = ClassroomForm(request.POST)
         if form.is_valid():
-            classroom = Classroom(
-                name=form.cleaned_data['name'],
-                
-            )
-            classroom.save()
+            try:
+                classroom = Classroom(
+                    name=form.cleaned_data['name'], 
+                )
+                classroom.save()
+                form = ClassroomForm()
+                print("Classroom added successfully.")
+            except Exception as e:
+                print(f"Error saving classroom: {e}")
+        else:
+            print(form.errors)
+    else:
+        form = ClassroomForm()
 
     return render(request, 'index.html', {'form': form})
+
 
 @log_update_classroom
 def update_classroom(request, classroom_id):

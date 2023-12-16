@@ -37,16 +37,21 @@ def log_get_teachers(*args, **kwargs):
 @log_add_teacher
 def add_teacher(request):
     if request.method == 'POST':
-        form = TeacherForm(request.POST) 
+        form = TeacherForm(request.POST)
         if form.is_valid():
             teacher = Teacher(
                 email=form.cleaned_data['email'],
                 password=form.cleaned_data['password'],
-                additional_field=form.cleaned_data['additional_field'],
+                first_name=form.cleaned_data['first_name'],
+                last_name=form.cleaned_data['last_name'],
             )
             teacher.save()
+            return redirect('index') 
+    else:
+        form = TeacherForm()
 
     return render(request, 'index.html', {'form': form})
+
 
 @log_update_teacher
 def update_teacher(request, teacher_id):
