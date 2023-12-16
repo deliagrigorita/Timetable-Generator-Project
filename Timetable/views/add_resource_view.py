@@ -1,17 +1,13 @@
 from django.shortcuts import render, redirect
 from ..forms import ResourceForm  
 from ..models import Resource, Classroom
-<<<<<<< HEAD
 from django.http import JsonResponse, HttpResponse
 import aspectlib
 import json
 from Timetable.security_aspect import secure_resource_access
-
-=======
 from django.http import JsonResponse
 import aspectlib
 import json
->>>>>>> origin/CRUD_op
 
 @aspectlib.Aspect
 def log_add_resource(*args, **kwargs):
@@ -41,10 +37,7 @@ def log_get_resources(*args, **kwargs):
     print("Resources received successfully.")
     return result
 
-<<<<<<< HEAD
 @secure_resource_access
-=======
->>>>>>> origin/CRUD_op
 @log_add_resource
 def add_resource(request):
     if request.method == 'POST':

@@ -15,25 +15,15 @@ from .views.add_resource_view import add_resource
 from .views.add_resource_view import update_resource
 from .views.add_resource_view import delete_resource
 from .views.add_resource_view import get_all_resources
-<<<<<<< HEAD
-from .views.add_schedule_vie import add_schedule
-from .views.add_schedule_vie import update_schedule
 from .views.add_schedule_vie import delete_schedule
 from .views.add_schedule_vie import get_all_schedules
-=======
 from .views.add_schedule_view import add_schedule
 from .views.add_schedule_view import update_schedule
-from .views.add_schedule_view import delete_schedule
-from .views.add_schedule_view import get_all_schedules
->>>>>>> origin/CRUD_op
 from .views.add_timetable_view import add_timetable
 from .views.add_timetable_view import update_timetable
 from .views.add_timetable_view import delete_timetable
 from .views.add_timetable_view import get_all_timetables
-<<<<<<< HEAD
 from .views.auth_view import login, user_logout
-
-=======
 from .views.add_subject_view import add_subject
 from .views.add_subject_view import update_subject
 from .views.add_subject_view import delete_subject
@@ -50,8 +40,6 @@ from .views.add_admin_view import add_admin
 from .views.add_admin_view import update_admin
 from .views.add_admin_view import delete_admin
 from .views.add_admin_view import get_all_admins
->>>>>>> origin/CRUD_op
-
 
 
 urlpatterns = [
@@ -74,10 +62,6 @@ urlpatterns = [
     path('delete_resource/<int:resource_id>/', delete_resource, name='delete_resource'),
     path('get_resources/', get_all_resources, name='get_resources'),
 
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/CRUD_op
     path('add_schedule/', add_schedule, name='add_schedule'),
     path('update_schedule/<int:schedule_id>/', update_schedule, name='update_schedule'),
     path('delete_schedule/<int:schedule_id>/', delete_schedule, name='delete_schedule'),
@@ -88,13 +72,10 @@ urlpatterns = [
     path('delete_timetable/<int:timetable_id>/', delete_timetable, name='delete_timetable'),
     path('get_timetables/', get_all_timetables, name='get_timetables'),
 
-<<<<<<< HEAD
     path('auth/', login, name='login'),
     path('logout/', user_logout, name='logout'), 
     
 
-
-=======
     path('add_subject/', add_subject, name='add_subject'),
     path('update_subject/<int:subject_id>/', update_subject, name='update_subject'),
     path('delete_subject/<int:subject_id>/', delete_subject, name='delete_subject'),
@@ -114,7 +95,6 @@ urlpatterns = [
     path('update_admin/<int:admin_id>/', update_admin, name='update_admin'),
     path('delete_admin/<int:admin_id>/', delete_admin, name='delete_admin'),
     path('get_admins/', get_all_admins, name='get_admins'),
->>>>>>> origin/CRUD_op
 ]
 
 
