@@ -4,6 +4,13 @@ from .models import Teacher
 from .models import Resource
 from .models import Schedule
 from .models import Timetable
+<<<<<<< HEAD
+=======
+from .models import Subject
+from .models import Classroom
+from .models import Class
+from .models import Admin
+>>>>>>> origin/CRUD_op
 
 class StudentForm(forms.ModelForm):
     class Meta:
@@ -30,9 +37,32 @@ class TimetableForm(forms.ModelForm):
         model = Timetable
         fields = ['classes', 'semester', 'academic_year', 'is_published']
         exclude = ['created_at', 'updated_at']
+<<<<<<< HEAD
 
 class LoginForm(forms.Form):
     email = forms.CharField(max_length=255, required=True)
     password = forms.CharField(widget=forms.PasswordInput, required=True)
 
     
+=======
+class SubjectForm(forms.ModelForm):
+    class Meta:
+        model = Subject
+        fields = ['name']
+
+class ClassroomForm(forms.ModelForm):
+    class Meta:
+        model = Classroom
+        fields = ['name']
+
+class ClassForm(forms.ModelForm):
+    class Meta:
+        model = Class
+        fields = ['name', 'teacher', 'students', 'classroom', 'schedule', 'resources']
+
+class AdminForm(forms.ModelForm):
+    class Meta:
+        model = Admin
+        fields = []
+
+>>>>>>> origin/CRUD_op

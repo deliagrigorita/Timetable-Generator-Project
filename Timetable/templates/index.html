@@ -62,7 +62,7 @@
 
     <div class="row">
         <div class="column">
-            <h2>Add Student</h2>
+            <!-- h2>Add Student</h2> -->
             <form id="addStudentForm" method="post" action="{% url 'add_student' %}">
                 {% csrf_token %}
                 {{ form.as_p }}
