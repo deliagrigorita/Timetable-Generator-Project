@@ -17,6 +17,7 @@ from .views.add_resource_view import delete_resource
 from .views.add_resource_view import get_all_resources
 from .views.add_schedule_vie import delete_schedule
 from .views.add_schedule_vie import get_all_schedules
+from .views.add_schedule_vie import add_schedule as mop_add_schedule
 from .views.add_schedule_view import add_schedule
 from .views.add_schedule_view import update_schedule
 from .views.add_timetable_view import add_timetable
@@ -62,6 +63,7 @@ urlpatterns = [
     path('delete_resource/<int:resource_id>/', delete_resource, name='delete_resource'),
     path('get_resources/', get_all_resources, name='get_resources'),
 
+    path('mop_add_schedule/', mop_add_schedule, name='mop_add_schedule'),
     path('add_schedule/', add_schedule, name='add_schedule'),
     path('update_schedule/<int:schedule_id>/', update_schedule, name='update_schedule'),
     path('delete_schedule/<int:schedule_id>/', delete_schedule, name='delete_schedule'),
