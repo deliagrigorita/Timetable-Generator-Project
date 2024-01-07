@@ -37,17 +37,21 @@ def log_get_resources(*args, **kwargs):
     print("Resources received successfully.")
     return result
 
-@secure_resource_access
+
 @log_add_resource
 def add_resource(request):
     if request.method == 'POST':
-        form = ResourceForm(request.POST)  
+        form = ResourceForm(request.POST)
         if form.is_valid():
-            resource = form.save()
+            resource = form.save()  
+            print(f"Resource with ID {resource.id} added successfully.")
             return redirect('index')  
+        else:
+            print("Form is not valid. Please check the form data.")
     else:
-        form = ResourceForm()  
-    return render(request, 'index.html', {'form': form})
+        form = ResourceForm()
+
+    return render(request, 'resource.html', {'form': form})
 
 @log_update_resource
 def update_resource(request, resource_id):

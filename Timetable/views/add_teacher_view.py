@@ -1,5 +1,5 @@
 # add_teacher_view.py
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse 
 from ..forms import TeacherForm 
 from ..models import Teacher, Subject, User
 from django.http import JsonResponse
@@ -36,21 +36,22 @@ def log_get_teachers(*args, **kwargs):
 
 @log_add_teacher
 def add_teacher(request):
+    action_url = reverse('add_teacher')  # Ensure that 'add_teacher' is the correct URL name
     if request.method == 'POST':
         form = TeacherForm(request.POST)
         if form.is_valid():
-            teacher = Teacher(
-                email=form.cleaned_data['email'],
-                password=form.cleaned_data['password'],
-                first_name=form.cleaned_data['first_name'],
-                last_name=form.cleaned_data['last_name'],
-            )
-            teacher.save()
-            return redirect('index') 
+            print("form.cleaned_data:\n")
+            print(form.cleaned_data)
+            teacher = form.save()
+            print(f"Teacher with ID {teacher.id} added successfully.")
+            return redirect('index')
+        else:
+            print("form.errors:\n")
+            print(form.errors)
     else:
         form = TeacherForm()
 
-    return render(request, 'index.html', {'form': form})
+    return render(request, 'teacher.html', {'action_url': action_url, 'form': form})
 
 
 @log_update_teacher
