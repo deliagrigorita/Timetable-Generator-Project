@@ -1,7 +1,7 @@
 # add_admin_view.py
 from django.shortcuts import render, redirect
 from ..forms import AdminForm 
-from ..models import Admin
+from ..models import Admin, User
 from django.http import JsonResponse
 import aspectlib
 import json
@@ -37,15 +37,32 @@ def log_get_admins(*args, **kwargs):
 @log_add_admin
 def add_admin(request):
     if request.method == 'POST':
-        form = AdminForm(request.POST) 
+        form = AdminForm(request.POST)
         if form.is_valid():
-            admin = Admin(
-                
-            )
-            admin.save()
+            try:
+                user_id = request.POST.get('user')
+                user = User.objects.get(id=user_id)
 
-    return render(request, 'index.html', {'form': form})
+                # Check if an admin already exists for the selected user
+                admin, created = Admin.objects.get_or_create(user=user)
 
+                if not created:
+                    print(f"Admin already exists for user {user.email}.")
+                else:
+                    # If you have additional fields for Admin, you can set them here
+                    form = AdminForm()
+                    print(f"Admin added successfully. Admin ID: {admin.id}")
+            except User.DoesNotExist:
+                print(f"User not found.")
+            except Exception as e:
+                print(f"Error saving Admin: {e}")
+        else:
+            print(form.errors)
+    else:
+        form = AdminForm()
+
+    users = User.objects.all()
+    return render(request, 'admin.html', {'form': form, 'users': users})
 @log_update_admin
 def update_admin(request, admin_id):
     try:
