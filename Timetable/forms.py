@@ -53,7 +53,7 @@ class ClassroomForm(forms.ModelForm):
 class ClassForm(forms.ModelForm):
     class Meta:
         model = Class
-        fields = ['name', 'teacher', 'students', 'classroom', 'schedule', 'resources']
+        fields = ['name', 'teacher', 'classroom', 'schedule']
 
 class AdminForm(forms.ModelForm):
     class Meta:

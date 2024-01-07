@@ -1,7 +1,7 @@
 # add_class_view.py
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from ..forms import ClassForm 
-from ..models import Class, Subject, User
+from ..models import Class, Subject, User, Teacher, Classroom, Schedule
 from django.http import JsonResponse
 import aspectlib
 import json
@@ -36,22 +36,28 @@ def log_get_classes(*args, **kwargs):
 
 @log_add_class
 def add_class(request):
+    teachers = Teacher.objects.all()
+    classrooms = Classroom.objects.all()
+    schedules = Schedule.objects.all()
+    subjects = Subject.objects.all()
+    action_url = reverse('add_class')
+
     if request.method == 'POST':
         form = ClassForm(request.POST) 
         if form.is_valid():
-            classs = Class(
-                name=form.cleaned_data['name'],
-                teacher=form.cleaned_data['teacher'],
-                students = form.cleaned_data['students'],
-                classroom = form.cleaned_data['classroom'],
-                schedule = form.cleaned_data['schedule'],
-                resources = form.cleaned_data['resources'],
-                additional_field=form.cleaned_data['additional_field'],
-            )
-            classs.save()
+            print("form.cleaned_data:\n")
+            print(form.cleaned_data)
+            form.save()
+            return redirect('index')  
+        else:
+            print("form.errors:\n")
+            print(form.errors)
+    else:
+        form = ClassForm()
+        
+    return render(request, 'index.html', {'classrooms': classrooms, 'teachers': teachers, 'schedules': schedules, 'action_url': action_url})
 
-    return render(request, 'index.html', {'form': form})
-
+ 
 @log_update_class
 def update_class(request, class_id):
     try:

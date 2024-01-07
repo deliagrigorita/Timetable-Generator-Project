@@ -37,7 +37,7 @@ def log_get_schedules(*args, **kwargs):
 @log_add_schedule
 def add_schedule(request):
     if request.method == 'POST':
-        form = ScheduleForm(request.POST)  #
+        form = ScheduleForm(request.POST)  
         if form.is_valid():
             schedule = form.save()
             return redirect('index')  

@@ -31,7 +31,7 @@ class Student(User):
         verbose_name_plural = 'Students'
 
 class Subject(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
@@ -41,9 +41,11 @@ class Teacher(User):
     name = models.ManyToManyField(Subject)
     # Additional fields for Teacher if needed
 
-    class Meta:
-        verbose_name = 'Teacher'
-        verbose_name_plural = 'Teachers'
+    # class Meta:
+    #     verbose_name = 'Teacher'
+    #     verbose_name_plural = 'Teachers'
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
 
 
 class Resource(models.Model):
@@ -61,11 +63,8 @@ class Classroom(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
 
-    class Meta:
-        verbose_name = 'Classroom'
-        verbose_name_plural = 'Classrooms'
-    # def __str__(self):
-    #     return self.name
+    def __str__(self):
+        return self.name
 
 
 class Schedule(models.Model):
@@ -82,10 +81,8 @@ class Class(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
-    students = models.ManyToManyField(Student)
     classroom = models.ForeignKey(Classroom, on_delete=models.CASCADE)
     schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE)
-    resources = models.ManyToManyField(Resource)
 
     def __str__(self):
         return self.name

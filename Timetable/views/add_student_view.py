@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from ..student_monitor import StudentCountMonitor
 from ..forms import StudentForm
 from ..models import Student
@@ -45,28 +45,21 @@ student_monitor = StudentCountMonitor()
 
 @log_add_student
 def add_student(request):
-    #global student_monitor
+    action_url = reverse('add_student')
     if request.method == 'POST':
         form = StudentForm(request.POST)
         if form.is_valid():
-            student = Student(
-                email=form.cleaned_data['email'],
-                password=make_password(form.cleaned_data['password']),
-                first_name=form.cleaned_data['first_name'],
-                last_name=form.cleaned_data['last_name'],
-                #date_of_birth=form.cleaned_data['date_of_birth']
-            )
-            student.save()
-            #return redirect('index')  
-           
-        student_monitor.student_count = len(Student.objects.all())
-        if not student_monitor.max_student_count():
-             student_monitor.violation_handler('max_student_count')
-        return redirect('index')
+            print("form.cleaned_data:\n")
+            print(form.cleaned_data)
+            form.save()
+            # return redirect('student')   
+        else:
+            print("form.errors:\n")
+            print(form.errors)
     else:
         form = StudentForm()
 
-    return render(request, 'index.html', {'form': form})
+    return render(request, 'student.html', {'action_url': action_url})
 
 
 @log_update_student
