@@ -43,9 +43,9 @@ def add_resource(request):
     if request.method == 'POST':
         form = ResourceForm(request.POST)
         if form.is_valid():
-            resource = form.save()  
+            resource = form.save()
             print(f"Resource with ID {resource.id} added successfully.")
-            return redirect('index')  
+            return redirect('index')  # Replace 'index' with the appropriate URL name
         else:
             print("Form is not valid. Please check the form data.")
     else:

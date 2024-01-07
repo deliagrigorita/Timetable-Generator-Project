@@ -62,7 +62,7 @@ def add_admin(request):
         form = AdminForm()
 
     users = User.objects.all()
-    return render(request, 'admin.html', {'form': form, 'users': users})
+    return render(request, 'admin.html', {'users': users})
 @log_update_admin
 def update_admin(request, admin_id):
     try:

@@ -99,3 +99,31 @@ class Timetable(models.Model):
 
     def __str__(self):
         return f"Timetable {self.id} - {self.classes.name}"
+    
+class Type(models.Model):
+    id = models.AutoField(primary_key=True)
+    type = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+    
+class StudentYear(models.Model):
+    id = models.AutoField(primary_key=True)
+    year = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+    
+class StudentSemian(models.Model):
+    id = models.AutoField(primary_key=True)
+    semntype = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+    
+class StudentGroup(models.Model):
+    id = models.AutoField(primary_key=True)
+    group = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name

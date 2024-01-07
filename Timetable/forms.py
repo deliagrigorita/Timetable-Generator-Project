@@ -20,6 +20,7 @@ class TeacherForm(forms.ModelForm):
         fields = ['email', 'password', 'first_name', 'last_name']
 
 class ResourceForm(forms.ModelForm):
+    classroom = forms.ModelChoiceField(queryset=Classroom.objects.all(), empty_label="Select Classroom")
     class Meta:
         model = Resource
         fields = ['name', 'description', 'classroom', 'availability']
@@ -56,6 +57,7 @@ class ClassForm(forms.ModelForm):
         fields = ['name', 'teacher', 'classroom', 'schedule']
 
 class AdminForm(forms.ModelForm):
+    #userbun = forms.ModelChoiceField(queryset=Student.objects.all(), empty_label="Select Student")
     class Meta:
         model = Admin
         fields = []
