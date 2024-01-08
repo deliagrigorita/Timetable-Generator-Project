@@ -1,9 +1,13 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
+from ..student_monitor import StudentCountMonitor
 from ..forms import StudentForm
 from ..models import Student
 from django.http import JsonResponse
 import aspectlib
 import json
+from ..test import test_schedule_functions
+from django.contrib.auth.hashers import make_password
+
 
 
 @aspectlib.Aspect
@@ -37,25 +41,25 @@ def log_get_students(*args, **kwargs):
     print("Student received successfully.")
     return result
 
+student_monitor = StudentCountMonitor()
 
 @log_add_student
 def add_student(request):
+    action_url = reverse('add_student')
     if request.method == 'POST':
         form = StudentForm(request.POST)
         if form.is_valid():
-            student = Student(
-                email=form.cleaned_data['email'],
-                password=form.cleaned_data['password'],
-                first_name=form.cleaned_data['first_name'],
-                last_name=form.cleaned_data['last_name']
-            )
-            student.save()
-            return redirect('index')  
-
+            print("form.cleaned_data:\n")
+            print(form.cleaned_data)
+            form.save()
+            # return redirect('student')   
+        else:
+            print("form.errors:\n")
+            print(form.errors)
     else:
         form = StudentForm()
 
-    return render(request, 'index.html', {'form': form})
+    return render(request, 'student.html', {'action_url': action_url})
 
 
 @log_update_student
@@ -75,6 +79,7 @@ def update_student(request, student_id):
         student.password = data.get('password', student.password)
         student.first_name = data.get('first_name', student.first_name)
         student.last_name = data.get('last_name', student.last_name)
+        student.date_of_birth = data.get('date_of_birth', student.date_of_birth)
 
         student.save()  
 
@@ -142,3 +147,5 @@ def get_all_students(request):
         }
         students_data.append(student_data)
     return JsonResponse(students_data, safe=False)
+
+

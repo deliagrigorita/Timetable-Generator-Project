@@ -1,9 +1,8 @@
 from django.db import models
 
-
 class User(models.Model):
     id = models.AutoField(primary_key=True)
-    email = models.EmailField(unique=True)
+    email = models.EmailField(max_length=2555, unique=True)
     password = models.CharField(max_length=128)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
@@ -14,13 +13,18 @@ class User(models.Model):
         return self.email
 
 
-class Admin(User):
-    # admin_code = models.CharField(max_length=20)
+class Admin(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    admin_code = models.CharField(max_length=20)
     # Additional fields for Admin if needed
+
+    def __str__(self):
+        return self.user.username  # You can use another attribute of the User model if needed
 
     class Meta:
         verbose_name = 'Admin'
         verbose_name_plural = 'Admins'
+
 
 
 class Student(User):
@@ -32,7 +36,7 @@ class Student(User):
         verbose_name_plural = 'Students'
 
 class Subject(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
@@ -42,9 +46,11 @@ class Teacher(User):
     name = models.ManyToManyField(Subject)
     # Additional fields for Teacher if needed
 
-    class Meta:
-        verbose_name = 'Teacher'
-        verbose_name_plural = 'Teachers'
+    # class Meta:
+    #     verbose_name = 'Teacher'
+    #     verbose_name_plural = 'Teachers'
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
 
 
 class Resource(models.Model):
@@ -80,10 +86,8 @@ class Class(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
-    students = models.ManyToManyField(Student)
     classroom = models.ForeignKey(Classroom, on_delete=models.CASCADE)
     schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE)
-    resources = models.ManyToManyField(Resource)
 
     def __str__(self):
         return self.name
@@ -100,3 +104,31 @@ class Timetable(models.Model):
 
     def __str__(self):
         return f"Timetable {self.id} - {self.classes.name}"
+    
+class Type(models.Model):
+    id = models.AutoField(primary_key=True)
+    type = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+    
+class StudentYear(models.Model):
+    id = models.AutoField(primary_key=True)
+    year = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+    
+class StudentSemian(models.Model):
+    id = models.AutoField(primary_key=True)
+    semntype = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+    
+class StudentGroup(models.Model):
+    id = models.AutoField(primary_key=True)
+    group = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
