@@ -27,6 +27,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['raul05madalin.pythonanywhere.com', '127.0.0.1']
 
+# GOOGLE_CALENDAR_CLIENT_ID = '272845606315-prllneihspnm2r7mbrkvf6jgv5trdu8b.apps.googleusercontent.com'
+# GOOGLE_CALENDAR_CLIENT_SECRET = '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'
+# GOOGLE_CALENDAR_REDIRECT_URI = 'http://127.0.0.1:8000/google-calendar/auth/callback/'
+
+GOOGLE_CALENDAR_CLIENT_ID = '315725404428-e6m6o5gk311lgsel702i7e3cvilr03bs.apps.googleusercontent.com'
+GOOGLE_CALENDAR_CLIENT_SECRET = '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'
+GOOGLE_CALENDAR_REDIRECT_URI = 'http://127.0.0.1:8000/google_calendar/'
 
 # Application definition
 
