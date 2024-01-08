@@ -1,5 +1,5 @@
 # add_classroom_view.py
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from ..forms import ClassroomForm 
 from ..models import Classroom, Subject, User
 from django.http import JsonResponse
@@ -36,6 +36,7 @@ def log_get_classrooms(*args, **kwargs):
 
 @log_add_classroom
 def add_classroom(request):
+    action_url = reverse('add_classroom')
     if request.method == 'POST':
         form = ClassroomForm(request.POST)
         if form.is_valid():
@@ -53,7 +54,7 @@ def add_classroom(request):
     else:
         form = ClassroomForm()
 
-    return render(request, 'index.html', {'form': form})
+    return render(request, 'classroom.html', {'action_url': action_url})
 
 
 @log_update_classroom

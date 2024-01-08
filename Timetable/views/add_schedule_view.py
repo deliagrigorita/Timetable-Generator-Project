@@ -43,7 +43,7 @@ def add_schedule(request):
             return redirect('index')  
     else:
         form = ScheduleForm()  
-    return render(request, 'index.html', {'form': form})
+    return render(request, 'schedule.html', {'form': form})
 
 @log_update_schedule
 def update_schedule(request, schedule_id):

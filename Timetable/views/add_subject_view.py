@@ -52,7 +52,7 @@ def add_subject(request):
     else:
         form = SubjectForm()
 
-    return render(request, 'index.html', {'form': form})
+    return render(request, 'subject.html', {'form': form})
 
 
 @log_update_subject
