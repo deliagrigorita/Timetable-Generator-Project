@@ -1,6 +1,8 @@
 from django.urls import path, include
 from django.contrib import admin
 from django.http import HttpResponse
+
+from .views.google_calendar_view import add_to_google_calendar
 from .views.index_view import index
 from .views.add_student_view import add_student
 from .views.add_student_view import update_student
@@ -91,6 +93,8 @@ urlpatterns = [
     path('update_admin/<int:admin_id>/', update_admin, name='update_admin'),
     path('delete_admin/<int:admin_id>/', delete_admin, name='delete_admin'),
     path('get_admins/', get_all_admins, name='get_admins'),
+
+    path('google_calendar/', add_to_google_calendar, name='google_callback'),
 ]
 
 
