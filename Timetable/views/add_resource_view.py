@@ -40,6 +40,7 @@ def log_get_resources(*args, **kwargs):
 
 @log_add_resource
 def add_resource(request):
+    classrooms = Classroom.objects.all()
     if request.method == 'POST':
         form = ResourceForm(request.POST)
         if form.is_valid():
@@ -51,7 +52,7 @@ def add_resource(request):
     else:
         form = ResourceForm()
 
-    return render(request, 'resource.html', {'form': form})
+    return render(request, 'resource.html', {'form':form, 'classrooms': classrooms})
 
 @log_update_resource
 def update_resource(request, resource_id):

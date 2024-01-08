@@ -15,26 +15,31 @@
         
         <!-- Bootstrap form groups -->
         <div class="form-group">
-            <label for="{{ form.name.id_for_label }}">Resource Name</label>
-            {{ form.name }}
+            <label for="id_resource_name">Resource Name</label>
+            <input type="text" class="form-control" id="id_resource_name" name="name" required>
             <div class="invalid-feedback">Please enter a resource name.</div>
         </div>
 
         <div class="form-group">
-            <label for="{{ form.description.id_for_label }}">Description</label>
-            {{ form.description }}
+            <label for="id_resource_name">Description</label>
+            <input type="text" class="form-control" id="id_description" name="description" required>
+            <div class="invalid-feedback">Please enter a Description.</div>
         </div>
 
         <div class="form-group">
-            <label for="{{ form.classroom.id_for_label }}">Classroom</label>
-            {{ form.classroom }}
+            <label for="id_classroom">Classroom:</label>
+            <select class="form-control" id="id_classroom" name="classroom" required>
+                <option value="" selected disabled>Select a classroom</option>
+                {% for classroom in classrooms %}
+                    <option value="{{ classroom.id }}">{{ classroom.name }}</option>
+                {% endfor %}
+            </select>
             <div class="invalid-feedback">Please select a classroom.</div>
         </div>
 
-        <div class="form-group">
-            <label for="{{ form.availability.id_for_label }}">Availability</label>
-            {{ form.availability }}
-            <div class="invalid-feedback">Please enter availability information.</div>
+        <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" id="id_availability" name="availability">
+            <label class="form-check-label" for="id_availability">Availability</label>
         </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>
