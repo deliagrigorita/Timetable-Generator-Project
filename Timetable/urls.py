@@ -1,6 +1,8 @@
 from django.urls import path, include
 from django.contrib import admin
 from django.http import HttpResponse
+
+from .views.google_calendar_view import add_to_google_calendar
 from .views.index_view import index
 from .views.add_student_view import add_student
 from .views.add_student_view import update_student
@@ -15,9 +17,6 @@ from .views.add_resource_view import add_resource
 from .views.add_resource_view import update_resource
 from .views.add_resource_view import delete_resource
 from .views.add_resource_view import get_all_resources
-from .views.add_schedule_vie import delete_schedule
-from .views.add_schedule_vie import get_all_schedules
-from .views.add_schedule_vie import add_schedule as mop_add_schedule
 from .views.add_schedule_view import add_schedule
 from .views.add_schedule_view import update_schedule
 from .views.add_timetable_view import add_timetable
@@ -63,11 +62,8 @@ urlpatterns = [
     path('delete_resource/<int:resource_id>/', delete_resource, name='delete_resource'),
     path('get_resources/', get_all_resources, name='get_resources'),
 
-    path('mop_add_schedule/', mop_add_schedule, name='mop_add_schedule'),
     path('add_schedule/', add_schedule, name='add_schedule'),
     path('update_schedule/<int:schedule_id>/', update_schedule, name='update_schedule'),
-    path('delete_schedule/<int:schedule_id>/', delete_schedule, name='delete_schedule'),
-    path('get_schedules/', get_all_schedules, name='get_schedules'),
 
     path('add_timetable/', add_timetable, name='add_timetable'),
     path('update_timetable/<int:timetable_id>/', update_timetable, name='update_timetable'),
@@ -97,6 +93,8 @@ urlpatterns = [
     path('update_admin/<int:admin_id>/', update_admin, name='update_admin'),
     path('delete_admin/<int:admin_id>/', delete_admin, name='delete_admin'),
     path('get_admins/', get_all_admins, name='get_admins'),
+
+    path('google_calendar/', add_to_google_calendar, name='google_callback'),
 ]
 
 

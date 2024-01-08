@@ -3,67 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Class</title>
-    <!-- Include Bootstrap CSS -->
+    <title>Timetable Generator!</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .custom-btn {
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin-bottom: 10px;
+            display: block; 
+            width: 100%;
+        }
+        .custom-btn:hover {
+            background-color: #0056b3;
+        }
+        .btn-column {
+            margin-bottom: 20px;
+        }
+        .auth-btn-column {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-<div class="container mt-5">
-    <h2>Create a New Class</h2>
-    <form method="post" action="{{ action_url }}" class="needs-validation" novalidate>
-        {% csrf_token %}
-        {{ form.as_p }}
-        <!-- Bootstrap form groups -->
-        <div class="form-group">
-            <label for="id_name">Name:</label>
-            <input type="text" class="form-control" id="id_name" name="name" required>
-            <div class="invalid-feedback">Please enter a name.</div>
-        </div>
-        
-        <div class="form-group">
-          <label for="id_teacher">Teacher:</label>
-          <select class="form-control" id="id_teacher" name="teacher" required>
-              <option value="" selected disabled>Select a teacher</option>
-              {% for teacher in teachers %}
-                <option value="{{ teacher.id }}">{{ teacher.first_name }} {{ teacher.last_name }}</option>
-              {% endfor %}
-          </select>
-          <div class="invalid-feedback">Please select a teacher.</div>
-        </div>
-        
-        <div class="form-group">
-          <label for="id_classroom">Classroom:</label>
-          <select class="form-control" id="id_classroom" name="classroom" required>
-              <option value="" selected disabled>Select a classroom</option>
-              {% for classroom in classrooms %}
-                  <option value="{{ classroom.id }}">{{ classroom.name }}</option>
-              {% endfor %}
-          </select>
-          <div class="invalid-feedback">Please select a classroom.</div>
-        </div>
-        
-        <div class="form-group">
-          <label for="id_schedule">Schedule:</label>
-          <select class="form-control" id="id_schedule" name="schedule" required>
-              <option value="" selected disabled>Select a schedule</option>
-              {% for schedule in schedules %}
-                  <option value="{{ schedule.id }}">{{ schedule }}</option>
-              {% endfor %}
-          </select>
-          <div class="invalid-feedback">Please select a schedule.</div>
-        </div>
-        
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-</div>
+    <div class="container mt-5">
+        <h2>Welcome!</h2>
 
-<!-- Include Bootstrap JS and dependencies -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <div class="row">
+            <div class="col-md-6 btn-column">
+                <a class="btn btn-primary custom-btn" href="{% url 'add_admin' %}">Add Admin</a>
+                <a class="btn btn-primary custom-btn" href="{% url 'add_class' %}">Add Class</a>
+                <a class="btn btn-primary custom-btn" href="{% url 'add_classroom' %}">Add Classroom</a>
+                <a class="btn btn-primary custom-btn" href="{% url 'add_teacher' %}">Add Teacher</a>
+            </div>
 
-<!-- Optional: Include Bootstrap Icons (for icons used in buttons) -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.25.0/font/bootstrap-icons.css">
+            <div class="col-md-6 btn-column">
+                <a class="btn btn-primary custom-btn" href="{% url 'add_resource' %}">Add Resource</a>
+                <a class="btn btn-primary custom-btn" href="{% url 'add_schedule' %}">Add Schedule</a>
+                <a class="btn btn-primary custom-btn" href="{% url 'add_student' %}">Add Student</a>
+            </div>
+        </div>
 
+        <div class="row auth-btn-column">
+            <div class="col-md-6">
+                <a class="btn btn-primary custom-btn" href="{% url 'login' %}">Login</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

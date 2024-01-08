@@ -18,11 +18,14 @@
             <label for="id_user">Select User</label>
             <select class="form-control" id="id_user" name="user" required>
                 {% for user in users %}
-                    <option value="{{ user.id }}">{{ user.email }}</option>
+                    <option value="{{ user.email }}">{{ user.email }}</option>
                 {% endfor %}
             </select>
             <div class="invalid-feedback">Please select a user.</div>
         </div>
+
+
+        <!-- Add more fields as needed -->
 
         <button type="submit" class="btn btn-primary">Add Admin</button>
     </form>

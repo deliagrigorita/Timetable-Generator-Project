@@ -7,7 +7,8 @@ from .models import Timetable
 from .models import Subject
 from .models import Classroom
 from .models import Class
-from .models import Admin
+from .models import Admin, User
+
 
 class StudentForm(forms.ModelForm):
     class Meta:
@@ -56,9 +57,12 @@ class ClassForm(forms.ModelForm):
         model = Class
         fields = ['name', 'teacher', 'classroom', 'schedule']
 
+
 class AdminForm(forms.ModelForm):
-    #userbun = forms.ModelChoiceField(queryset=Student.objects.all(), empty_label="Select Student")
     class Meta:
         model = Admin
-        fields = []
+        fields = ['user', 'admin_code']
+
+    # You can customize the form field attributes here if necessary
+    user = forms.ModelChoiceField(queryset=User.objects.all(), to_field_name='email')
 

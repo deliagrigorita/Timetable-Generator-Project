@@ -1,10 +1,10 @@
-# add_admin_view.py
 from django.shortcuts import render, redirect
 from ..forms import AdminForm 
 from ..models import Admin, User
 from django.http import JsonResponse
 import aspectlib
 import json
+from django.shortcuts import get_object_or_404
 
 @aspectlib.Aspect
 def log_add_admin(*args, **kwargs):
@@ -34,35 +34,28 @@ def log_get_admins(*args, **kwargs):
     print("Admins received successfully.")
     return result
 
-@log_add_admin
 def add_admin(request):
+    users = User.objects.all()  
+    form = AdminForm(initial={'user': User.objects.all().first()})
     if request.method == 'POST':
         form = AdminForm(request.POST)
         if form.is_valid():
-            try:
-                user_id = request.POST.get('user')
-                user = User.objects.get(id=user_id)
+            user = form.cleaned_data['user']
 
-                # Check if an admin already exists for the selected user
-                admin, created = Admin.objects.get_or_create(user=user)
+            admin_instance = form.save(commit=False)
 
-                if not created:
-                    print(f"Admin already exists for user {user.email}.")
-                else:
-                    # If you have additional fields for Admin, you can set them here
-                    form = AdminForm()
-                    print(f"Admin added successfully. Admin ID: {admin.id}")
-            except User.DoesNotExist:
-                print(f"User not found.")
-            except Exception as e:
-                print(f"Error saving Admin: {e}")
-        else:
-            print(form.errors)
+            admin_instance.user = user
+
+            admin_instance.save()
+
+            return redirect('index')  
     else:
         form = AdminForm()
 
-    users = User.objects.all()
-    return render(request, 'admin.html', {'users': users})
+    return render(request, 'admin.html', {'users': users, 'form': form})
+       
+
+
 @log_update_admin
 def update_admin(request, admin_id):
     try:
