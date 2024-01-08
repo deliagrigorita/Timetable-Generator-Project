@@ -13,13 +13,18 @@ class User(models.Model):
         return self.email
 
 
-class Admin(User):
-    # admin_code = models.CharField(max_length=20)
+class Admin(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    admin_code = models.CharField(max_length=20)
     # Additional fields for Admin if needed
+
+    def __str__(self):
+        return self.user.username  # You can use another attribute of the User model if needed
 
     class Meta:
         verbose_name = 'Admin'
         verbose_name_plural = 'Admins'
+
 
 
 class Student(User):

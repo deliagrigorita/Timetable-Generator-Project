@@ -37,7 +37,7 @@ def log_get_resources(*args, **kwargs):
     print("Resources received successfully.")
     return result
 
-
+@secure_resource_access
 @log_add_resource
 def add_resource(request):
     if request.method == 'POST':

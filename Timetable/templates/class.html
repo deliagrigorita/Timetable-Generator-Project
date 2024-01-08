@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Class</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Create a New Class</h2>
+    <form method="post" action="{{ action_url }}" class="needs-validation" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="form-group">
+            <label for="id_name">Name:</label>
+            <input type="text" class="form-control" id="id_name" name="name" required>
+            <div class="invalid-feedback">Please enter a name.</div>
+        </div>
+        
+        <div class="form-group">
+          <label for="id_teacher">Teacher:</label>
+          <select class="form-control" id="id_teacher" name="teacher" required>
+              <option value="" selected disabled>Select a teacher</option>
+              {% for teacher in teachers %}
+                <option value="{{ teacher.id }}">{{ teacher.first_name }} {{ teacher.last_name }}</option>
+              {% endfor %}
+          </select>
+          <div class="invalid-feedback">Please select a teacher.</div>
+        </div>
+        
+        <div class="form-group">
+          <label for="id_classroom">Classroom:</label>
+          <select class="form-control" id="id_classroom" name="classroom" required>
+              <option value="" selected disabled>Select a classroom</option>
+              {% for classroom in classrooms %}
+                  <option value="{{ classroom.id }}">{{ classroom.name }}</option>
+              {% endfor %}
+          </select>
+          <div class="invalid-feedback">Please select a classroom.</div>
+        </div>
+        
+        <div class="form-group">
+          <label for="id_schedule">Schedule:</label>
+          <select class="form-control" id="id_schedule" name="schedule" required>
+              <option value="" selected disabled>Select a schedule</option>
+              {% for schedule in schedules %}
+                  <option value="{{ schedule.id }}">{{ schedule }}</option>
+              {% endfor %}
+          </select>
+          <div class="invalid-feedback">Please select a schedule.</div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.25.0/font/bootstrap-icons.css">
+
+</body>
+</html>

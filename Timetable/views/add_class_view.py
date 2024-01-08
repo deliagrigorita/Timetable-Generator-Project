@@ -55,7 +55,7 @@ def add_class(request):
     else:
         form = ClassForm()
         
-    return render(request, 'index.html', {'classrooms': classrooms, 'teachers': teachers, 'schedules': schedules, 'action_url': action_url})
+    return render(request, 'class.html', {'classrooms': classrooms, 'teachers': teachers, 'schedules': schedules, 'action_url': action_url})
 
  
 @log_update_class
