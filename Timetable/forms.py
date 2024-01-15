@@ -55,7 +55,7 @@ class ClassroomForm(forms.ModelForm):
 class ClassForm(forms.ModelForm):
     class Meta:
         model = Class
-        fields = ['name', 'teacher', 'classroom', 'schedule']
+        fields = ['name', 'teacher', 'classroom', 'schedule', 'group', 'semian', 'year', 'type']
 
 
 class AdminForm(forms.ModelForm):
@@ -63,6 +63,5 @@ class AdminForm(forms.ModelForm):
         model = Admin
         fields = ['user', 'admin_code']
 
-    # You can customize the form field attributes here if necessary
     user = forms.ModelChoiceField(queryset=User.objects.all(), to_field_name='email')
 

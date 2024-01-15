@@ -40,7 +40,6 @@ def get_next_schedule(new_schedule):
     start_time = re.split(r'\s', str(new_schedule.start_time))[1]
     start_time = int(re.split(r':', start_time)[0])
 
-    # First try the same day
     found_today = False
     for hour in range(start_time, 19, 2):
         valid = True
@@ -55,7 +54,6 @@ def get_next_schedule(new_schedule):
             found_today = True
             break
             
-    # If not found the same day
     if not found_today:
         for day in range(day_support[new_schedule.day] + 1, 6):
             found_today = False

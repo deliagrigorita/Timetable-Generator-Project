@@ -7,7 +7,6 @@ class User(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     date_of_birth = models.DateField(null=True)
-    #profile_picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
 
     def __str__(self):
         return self.email
@@ -16,10 +15,9 @@ class User(models.Model):
 class Admin(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     admin_code = models.CharField(max_length=20)
-    # Additional fields for Admin if needed
 
     def __str__(self):
-        return self.user.username  # You can use another attribute of the User model if needed
+        return self.user.username  
 
     class Meta:
         verbose_name = 'Admin'
@@ -29,7 +27,6 @@ class Admin(models.Model):
 
 class Student(User):
     matricol = models.CharField(max_length=128, default='111222333444')
-    # Additional fields for Student if needed
 
     class Meta:
         verbose_name = 'Student'
@@ -81,13 +78,44 @@ class Schedule(models.Model):
     def __str__(self):
         return f"{self.day} - {self.start_time} to {self.end_time}"
 
+class Type(models.Model):
+    id = models.AutoField(primary_key=True)
+    type = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.type
+    
+class StudentYear(models.Model):
+    id = models.AutoField(primary_key=True)
+    year = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.year
+    
+class StudentSemian(models.Model):
+    id = models.AutoField(primary_key=True)
+    semian = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.semian
+    
+class StudentGroup(models.Model):
+    id = models.AutoField(primary_key=True)
+    group = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.group
 
 class Class(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
-    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
-    classroom = models.ForeignKey(Classroom, on_delete=models.CASCADE)
-    schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE)
+    teacher = models.ForeignKey('Teacher', on_delete=models.CASCADE, related_name='classes')
+    classroom = models.ForeignKey('Classroom', on_delete=models.CASCADE, related_name='classes')
+    schedule = models.ForeignKey('Schedule', on_delete=models.CASCADE, related_name='classes')
+    group = models.ForeignKey('StudentGroup', on_delete=models.CASCADE, default='group', related_name='classes', null=True)
+    semian = models.ForeignKey('StudentSemian', on_delete=models.CASCADE, default='semian', related_name='classes', null=True)
+    year =  models.ForeignKey('StudentYear', on_delete=models.CASCADE, default='year', related_name='classes', null=True)
+    type =  models.ForeignKey('Type', on_delete=models.CASCADE, default='type', related_name='classes', null=True)
 
     def __str__(self):
         return self.name
@@ -98,6 +126,7 @@ class Timetable(models.Model):
     classes = models.ForeignKey(Class, on_delete=models.CASCADE)
     semester = models.CharField(max_length=20, null=True)
     academic_year = models.CharField(max_length=10, null=True)
+    
     is_published = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
@@ -105,30 +134,3 @@ class Timetable(models.Model):
     def __str__(self):
         return f"Timetable {self.id} - {self.classes.name}"
     
-class Type(models.Model):
-    id = models.AutoField(primary_key=True)
-    type = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.name
-    
-class StudentYear(models.Model):
-    id = models.AutoField(primary_key=True)
-    year = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.name
-    
-class StudentSemian(models.Model):
-    id = models.AutoField(primary_key=True)
-    semntype = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.name
-    
-class StudentGroup(models.Model):
-    id = models.AutoField(primary_key=True)
-    group = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.name

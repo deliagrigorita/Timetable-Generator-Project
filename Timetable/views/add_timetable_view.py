@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from ..forms import TimetableForm 
-from ..models import Timetable, Class
+from ..models import Timetable, Class, Schedule
 from django.http import JsonResponse
 import aspectlib
 import json
@@ -33,17 +33,53 @@ def log_get_timetables(*args, **kwargs):
     print("Timetables received successfully.")
     return result
 
+
+# views.py
+# from django.http import JsonResponse
+
+# def add_timetable(request):
+#     classes = Class.objects.all()
+#     schedules = Schedule.objects.all()
+
+#     # Create a timetable list of dictionaries to store classes based on schedule
+#     timetable = []
+#     for schedule in schedules:
+#         classes_for_schedule = classes.filter(schedule=schedule)
+#         cell_id = f"{schedule.day}_{schedule.start_time}"
+#         print(cell_id)
+#         timetable.append({'schedule': schedule.__dict__, 'classes': [cls.__dict__ for cls in classes_for_schedule], 'cell_id': cell_id})
+
+#     context = {'timetable': timetable}
+
+#     if request.headers.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
+#         return JsonResponse(context, safe=False)
+#     else:
+#         return render(request, 'timetable.html', context)
+
+
+
 @log_add_timetable
 def add_timetable(request):
-    if request.method == 'POST':
-        form = TimetableForm(request.POST)  
-        if form.is_valid():
-            timetable = form.save()
-            return redirect('index')  
-    else:
-        form = TimetableForm()  
+    classes = Class.objects.all()
 
-    return render(request, 'index.html', {'form': form})
+    # timetable = []
+    # timetable.append({'classes': classes})
+
+    days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+    hours = [ '08:00', '10:00', '12:00', '14:00', '16:00', '18:00']
+
+    context = {'classes': classes, 'days': days, 'hours': hours}
+
+    
+
+    print("clasa")
+    print(f"Class Name: {classes[0].name}, Day: {classes[0].schedule.day}, Hour: {classes[0].schedule.start_time}")
+    print(f"Class Name: {classes[1].name}, Day: {classes[1].schedule.day}, Hour: {classes[1].schedule.start_time}")
+    print(f"Class Name: {classes[2].name}, Day: {classes[2].schedule.day}, Hour: {classes[2].schedule.start_time}")
+
+    return render(request, 'timetable.html', context)
+
+
 
 @log_update_timetable
 def update_timetable(request, timetable_id):

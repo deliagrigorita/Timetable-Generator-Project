@@ -52,7 +52,6 @@ def add_student(request):
             print("form.cleaned_data:\n")
             print(form.cleaned_data)
             form.save()
-            # return redirect('student')   
         else:
             print("form.errors:\n")
             print(form.errors)

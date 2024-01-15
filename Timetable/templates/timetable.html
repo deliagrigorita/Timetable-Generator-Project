@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            margin-top: 20px;
+        }
+
+        .bg-light-gray {
+            background-color: #f7f7f7;
+        }
+
+        .table-bordered td,
+        .table-bordered th {
+            border: 1px solid #dee2e6;
+        }
+
+        .table td,
+        .table th {
+            padding: .75rem;
+            vertical-align: top;
+            border-top: 1px solid #dee2e6;
+        }
+    </style>
+</head>
+<body>
+
+
+<div class="container">
+    <div class="timetable-img text-center">
+        <img src="img/content/timetable.png" alt="">
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered text-center">
+            <thead>
+            <tr class="bg-light-gray">
+                <th class="text-uppercase">Time</th>
+                <th class="text-uppercase">Monday</th>
+                <th class="text-uppercase">Tuesday</th>
+                <th class="text-uppercase">Wednesday</th>
+                <th class="text-uppercase">Thursday</th>
+                <th class="text-uppercase">Friday</th>
+                <th class="text-uppercase">Saturday</th>
+            </tr>
+            </thead>
+            <tbody>
+            
+                {% for hour in hours %}
+                <tr>
+                    <td class="align-middle">
+                        {{ hour }} - {{ hour }}
+                    </td>
+            
+                    {% for day in days %}
+                        {% with found_class=None %}
+                            {% for class in classes %}
+                                {% if class.schedule.day == day and class.schedule.start_time|time:"H:i" == hour %}
+                                    {% with found_class=class %}
+                                        <td>
+                                            {{ found_class.name }}<br>
+                                            {{ found_class.teacher.name }}
+                                        </td>
+                                    {% endwith %}
+                                {% endif %}
+                            {% endfor %}
+            
+                            {% if not found_class %}
+                                <td></td>
+                            {% endif %}
+                        {% endwith %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<html>
+<head>
+    <script>
+        function modifyTimetable() {
+            // Get the timetable element
+            var timetable = document.getElementById("timetable");
+
+            // Modify the timetable dynamically
+            timetable.style.backgroundColor = "blue";
+            timetable.style.color = "white";
+            timetable.style.fontSize = "20px";
+        }
+    </script>
+</head>
+<body>
+<button onclick="modifyTimetable()">Modify Timetable</button>
+</body>
+</html>
+
+

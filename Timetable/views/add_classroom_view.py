@@ -1,4 +1,3 @@
-# add_classroom_view.py
 from django.shortcuts import render, redirect, reverse
 from ..forms import ClassroomForm 
 from ..models import Classroom, Subject, User

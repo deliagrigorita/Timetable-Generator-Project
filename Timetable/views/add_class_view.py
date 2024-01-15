@@ -1,7 +1,7 @@
 # add_class_view.py
 from django.shortcuts import render, redirect, reverse
 from ..forms import ClassForm 
-from ..models import Class, Subject, User, Teacher, Classroom, Schedule
+from ..models import Class, Subject, User, Teacher, Classroom, Schedule, StudentGroup, StudentYear, StudentSemian, Type
 from django.http import JsonResponse
 import aspectlib
 import json
@@ -39,7 +39,10 @@ def add_class(request):
     teachers = Teacher.objects.all()
     classrooms = Classroom.objects.all()
     schedules = Schedule.objects.all()
-    subjects = Subject.objects.all()
+    groups = StudentGroup.objects.all()
+    semiani = StudentSemian.objects.all()
+    years = StudentYear.objects.all()
+    types = Type.objects.all()
     action_url = reverse('add_class')
 
     if request.method == 'POST':
@@ -55,7 +58,7 @@ def add_class(request):
     else:
         form = ClassForm()
         
-    return render(request, 'class.html', {'classrooms': classrooms, 'teachers': teachers, 'schedules': schedules, 'action_url': action_url})
+    return render(request, 'class.html', {'classrooms': classrooms, 'teachers': teachers, 'schedules': schedules, 'groups': groups, 'semiani': semiani,'years': years,'types': types, 'action_url': action_url})
 
  
 @log_update_class

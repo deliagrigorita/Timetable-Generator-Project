@@ -50,7 +50,51 @@
           </select>
           <div class="invalid-feedback">Please select a schedule.</div>
         </div>
+
+        <div class="form-group">
+            <label for="id_group">Group:</label>
+            <select class="form-control" id="id_group" name="group" required>
+                <option value="" selected disabled>Select a group</option>
+                {% for group in groups %}
+                    <option value="{{ group.id }}">{{ group }}</option>
+                {% endfor %}
+            </select>
+            <div class="invalid-feedback">Please select a group.</div>
+          </div>
         
+        <div class="form-group">
+            <label for="id_semian">Semian:</label>
+            <select class="form-control" id="id_semian" name="semian" required>
+                <option value="" selected disabled>Select a semian</option>
+                {% for semian in semiani %}
+                    <option value="{{ semian.id }}">{{ semian }}</option>
+                {% endfor %}
+            </select>
+            <div class="invalid-feedback">Please select a semian.</div>
+        </div>  
+
+        <div class="form-group">
+            <label for="id_year">Year:</label>
+            <select class="form-control" id="id_year" name="year" required>
+                <option value="" selected disabled>Select a year</option>
+                {% for year in years %}
+                    <option value="{{ year.id }}">{{ year }}</option>
+                {% endfor %}
+            </select>
+            <div class="invalid-feedback">Please select a year.</div>
+        </div>
+
+        <div class="form-group">
+            <label for="id_type">Type:</label>
+            <select class="form-control" id="id_type" name="type" required>
+                <option value="" selected disabled>Select a type</option>
+                {% for type in types %}
+                    <option value="{{ type.id }}">{{ type }}</option>
+                {% endfor %}
+            </select>
+            <div class="invalid-feedback">Please select a type.</div>
+        </div>
+
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>

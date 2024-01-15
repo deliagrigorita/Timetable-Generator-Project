@@ -1,6 +1,5 @@
-# add_schedule_view.py
 from django.shortcuts import render, redirect
-from ..forms import ScheduleForm  # Assuming you have a ScheduleForm
+from ..forms import ScheduleForm  
 from ..models import Schedule
 from django.http import JsonResponse
 import aspectlib

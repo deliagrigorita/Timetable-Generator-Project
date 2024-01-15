@@ -1,4 +1,3 @@
-# add_teacher_view.py
 from django.shortcuts import render, redirect, reverse 
 from ..forms import TeacherForm 
 from ..models import Teacher, Subject, User
@@ -36,7 +35,7 @@ def log_get_teachers(*args, **kwargs):
 
 @log_add_teacher
 def add_teacher(request):
-    action_url = reverse('add_teacher')  # Ensure that 'add_teacher' is the correct URL name
+    action_url = reverse('add_teacher')  
     if request.method == 'POST':
         form = TeacherForm(request.POST)
         if form.is_valid():

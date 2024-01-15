@@ -91,9 +91,17 @@ DATABASES = {
     #     'HOST': 'raul05madalin.mysql.pythonanywhere-services.com',
     #     'PORT': '3306',
     # },
-    'default': {    # local_db
+    # 'default': {    # local_db
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'timetable_generator_project',
+    #     'USER': 'root',
+    #     'PASSWORD': '',
+    #     'HOST': 'localhost',
+    #     'PORT': '3306',
+    # },
+     'default': {    # local_db
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'timetable_generator_project',
+        'NAME': 'database_timetable',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',
