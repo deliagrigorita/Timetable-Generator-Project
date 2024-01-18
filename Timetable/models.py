@@ -41,11 +41,6 @@ class Subject(models.Model):
 
 class Teacher(User):
     name = models.ManyToManyField(Subject)
-    # Additional fields for Teacher if needed
-
-    # class Meta:
-    #     verbose_name = 'Teacher'
-    #     verbose_name_plural = 'Teachers'
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 

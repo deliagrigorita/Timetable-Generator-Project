@@ -33,37 +33,9 @@ def log_get_timetables(*args, **kwargs):
     print("Timetables received successfully.")
     return result
 
-
-# views.py
-# from django.http import JsonResponse
-
-# def add_timetable(request):
-#     classes = Class.objects.all()
-#     schedules = Schedule.objects.all()
-
-#     # Create a timetable list of dictionaries to store classes based on schedule
-#     timetable = []
-#     for schedule in schedules:
-#         classes_for_schedule = classes.filter(schedule=schedule)
-#         cell_id = f"{schedule.day}_{schedule.start_time}"
-#         print(cell_id)
-#         timetable.append({'schedule': schedule.__dict__, 'classes': [cls.__dict__ for cls in classes_for_schedule], 'cell_id': cell_id})
-
-#     context = {'timetable': timetable}
-
-#     if request.headers.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
-#         return JsonResponse(context, safe=False)
-#     else:
-#         return render(request, 'timetable.html', context)
-
-
-
 @log_add_timetable
 def add_timetable(request):
     classes = Class.objects.all()
-
-    # timetable = []
-    # timetable.append({'classes': classes})
 
     days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
     hours = [ '08:00', '10:00', '12:00', '14:00', '16:00', '18:00']

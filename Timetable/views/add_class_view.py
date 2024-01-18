@@ -1,4 +1,3 @@
-# add_class_view.py
 from django.shortcuts import render, redirect, reverse
 from ..forms import ClassForm 
 from ..models import Class, Subject, User, Teacher, Classroom, Schedule, StudentGroup, StudentYear, StudentSemian, Type

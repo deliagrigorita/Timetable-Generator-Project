@@ -42,6 +42,6 @@ def test_schedule_functions():
     print("Test Case 3: Handling overlapping schedule\n")
     
     handle_overlapping_schedule(existing_schedule)
-    # existing_schedule.refresh_from_db()
+
     print("Overlapping resolved\n")
 
